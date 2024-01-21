@@ -6,6 +6,8 @@ using UnityEngine.Windows;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float torqueAmount = 1f;
+    [SerializeField] float moveSpeed = 20f;
+
     Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()
@@ -18,11 +20,30 @@ public class PlayerController : MonoBehaviour
     {
         if(UnityEngine.Input.GetKey(KeyCode.LeftArrow))
         {
-            rb2d.AddTorque(torqueAmount);
+            if (UnityEngine.Input.GetKey(KeyCode.Space))
+            {
+                rb2d.AddTorque(torqueAmount);
+            }
+
+            if(moveSpeed > 0f) 
+            {
+                float moveAmount = UnityEngine.Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+                transform.Translate(-moveAmount, 0, 0);
+            }
+
         }
         else if (UnityEngine.Input.GetKey(KeyCode.RightArrow))
         {
-            rb2d.AddTorque(-torqueAmount);
+            if (UnityEngine.Input.GetKey(KeyCode.Space))
+            {
+                rb2d.AddTorque(-torqueAmount);
+            }
+            if(moveSpeed < 40f) 
+            {
+                float moveAmount = UnityEngine.Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+                transform.Translate(moveAmount, 0, 0);
+            }
+  
         }
     }
 }
