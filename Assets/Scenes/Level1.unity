@@ -650,6 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torqueAmount: 10
+  moveSpeed: 20
 --- !u!114 &1116605111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc8038388985144d8826f7737923cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadDelay: 1
 --- !u!1 &1148538796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,6 +1609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2476a90fe62472146ab9dde7d4bfbc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadDelay: 1
 --- !u!61 &1685993288
 BoxCollider2D:
   m_ObjectHideFlags: 0
