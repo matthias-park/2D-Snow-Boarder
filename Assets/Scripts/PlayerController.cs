@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,44 +7,51 @@ using UnityEngine.Windows;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float torqueAmount = 1f;
-    [SerializeField] float moveSpeed = 20f;
+    [SerializeField] float boostSpeed = 30f;
+    [SerializeField] float baseSpeed = 20f;
+    SurfaceEffector2D surfaceEffector2D;
+
 
     Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(UnityEngine.Input.GetKey(KeyCode.LeftArrow))
+        RotatePlayer();
+        RespondToBoost();
+    }
+
+    private void RespondToBoost()
+    {
+        if(UnityEngine.Input.GetKey(KeyCode.UpArrow)) 
         {
-            if (UnityEngine.Input.GetKey(KeyCode.Space))
-            {
-                rb2d.AddTorque(torqueAmount);
-            }
+            surfaceEffector2D.speed = boostSpeed;
+        }
+        else 
+        {
+            surfaceEffector2D.speed = baseSpeed;
+        }
+        //if we push up, then speed up
 
-            if(moveSpeed > 0f) 
-            {
-                float moveAmount = UnityEngine.Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-                transform.Translate(-moveAmount, 0, 0);
-            }
+        //otherwise stay at normal speed
+        // access the surfaceeffector2d and change its speed
+    }
 
+    void RotatePlayer()
+    {
+        if (UnityEngine.Input.GetKey(KeyCode.LeftArrow))
+        {
+            rb2d.AddTorque(torqueAmount);
         }
         else if (UnityEngine.Input.GetKey(KeyCode.RightArrow))
         {
-            if (UnityEngine.Input.GetKey(KeyCode.Space))
-            {
-                rb2d.AddTorque(-torqueAmount);
-            }
-            if(moveSpeed < 40f) 
-            {
-                float moveAmount = UnityEngine.Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-                transform.Translate(moveAmount, 0, 0);
-            }
-  
+            rb2d.AddTorque(-torqueAmount);
         }
     }
 }
